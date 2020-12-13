@@ -1,0 +1,30 @@
+export const BPMN_PROCESS = 'bpmn:Process';
+export const BPMN_SUB_PROCESS = 'bpmn:SubProcess';
+export const BPMN_START_EVENT = 'bpmn:StartEvent';
+export const BPMN_END_EVENT = 'bpmn:EndEvent';
+export const BPMN_SEQUENCE_FLOW = 'bpmn:SequenceFlow';
+export const BPMN_TASK = 'bpmn:Task';
+export const BPMN_EXCL_GW = 'bpmn:ExclusiveGateway';
+export const BPMN_PARA_GW = 'bpmn:ParallelGateway';
+export const BPMN_BE = 'bpmn:BoundaryEvent';
+export const BPMN_BEE = 'bpmn:ErrorEventDefinition';
+export const BPMN_IE = 'bpmn:IntermediateCatchEvent';
+export const BPMN_IET = 'bpmn:TimerEventDefinition';
+export const BPMN_MULTI_INSTANCE = 'bpmn:MultiInstanceLoopCharacteristics';
+export const BPMN_LOOP = 'bpmn:StandardLoopCharacteristics';
+
+export const CONDITIONAL_BLOCK = 'ConditionalBlock';
+export const FANOUT_BLOCK = 'FanoutBlock';
+export const LOOP_BLOCK = 'LoopBlock';
+export const PARALLEL_BLOCK = 'ParallelBlock';
+export const SEQUENCE_BLOCK = 'SequenceBlock';
+export const SUB_WORKFLOW_BLOCK = 'SubWorkflowBlock';
+export const TASK = 'Task';
+export const DELAY_TIMER = 'DelayTimer';
+
+export const DEFAULT_BRANCH = 'default';
+export const DEFAULT_RETRY_COUNT = 0;
+export const DEFAULT_RETRY_FIRST_INTERVAL = 1000;
+export const DEFAULT_DURABLE_FUNCTIONS_TIMEOUT = 300000; // in millis. the default timeout of durable functions consumption plan (5 mins; requires changing host.json)
+export const DEFAULT_COMPOSER_TIMEOUT = 60000; // openwhisk default is 60s
+export const DEFAULT_COMPOSER_TIMEOUT_MINIMUM = 100; // openwhisk minimum timeout value

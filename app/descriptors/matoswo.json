@@ -1,0 +1,122 @@
+{
+  "name": "MaToSWo",
+  "prefix": "matoswo",
+  "uri": "http://matoswo",
+  "xml": {
+    "tagAlias": "lowerCase"
+  },
+  "associations": [],
+  "types": [
+    {
+      "name": "MaToSWoProcess",
+      "extends": [
+        "bpmn:Process"
+      ],
+      "properties": [
+        {
+          "name": "awsAccountId",
+          "isAttr": true,
+          "type": "String"
+        },
+        {
+          "name": "awsAccountRegion",
+          "isAttr": true,
+          "type": "String"
+        }
+      ]
+    },
+    {
+      "name": "MaToSWoTask",
+      "extends": [
+        "bpmn:Task",
+        "bpmn:SubProcess"
+      ],
+      "properties": [
+        {
+          "name": "inputSchema",
+          "isAttr": true,
+          "type": "String"
+        },
+        {
+          "name": "outputSchema",
+          "isAttr": true,
+          "type": "String"
+        },
+        {
+          "name": "loopCondition",
+          "isAttr": true,
+          "type": "String"
+        },
+        {
+          "name": "retryCount",
+          "isAttr": true,
+          "type": "Integer"
+        },
+        {
+          "name": "timeoutMilliseconds",
+          "isAttr": true,
+          "type": "Integer"
+        }
+      ]
+    },
+    {
+      "name": "MaToSWoExclusiveGateway",
+      "extends": [
+        "bpmn:ExclusiveGateway"
+      ],
+      "properties": [
+        {
+          "name": "inputSchema",
+          "isAttr": true,
+          "type": "String"
+        },
+        {
+          "name": "outputSchema",
+          "isAttr": true,
+          "type": "String"
+        },
+        {
+          "name": "branches",
+          "isAttr": true,
+          "type": "String"
+        }
+      ]
+    },
+    {
+      "name": "MaToSWoParallelGateway",
+      "extends": [
+        "bpmn:ParallelGateway"
+      ],
+      "properties": [
+        {
+          "name": "inputSchema",
+          "isAttr": true,
+          "type": "String"
+        },
+        {
+          "name": "outputSchema",
+          "isAttr": true,
+          "type": "String"
+        }
+      ]
+    },
+    {
+      "name": "MaTosWoIntermediateCatchEventTimer",
+      "extends": [
+        "bpmn:IntermediateCatchEvent"
+      ],
+      "properties": [
+        {
+          "name": "milliseconds",
+          "isAttr": true,
+          "type": "String"
+        },
+        {
+          "name": "inputSchema",
+          "isAttr": true,
+          "type": "String"
+        }
+      ]
+    }
+  ]
+}

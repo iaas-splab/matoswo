@@ -1,0 +1,144 @@
+{
+  "startEvent": {
+    "id": "StartEvent_1",
+    "$type": "bpmn:StartEvent",
+    "name": "",
+    "outgoing": "Flow_1kaiyre"
+  },
+  "elements": {
+    "StartEvent_1": {
+      "id": "StartEvent_1",
+      "$type": "bpmn:StartEvent",
+      "name": "",
+      "outgoing": "Flow_1kaiyre"
+    },
+    "Flow_1kaiyre": {
+      "id": "Flow_1kaiyre",
+      "name": "",
+      "$type": "bpmn:SequenceFlow",
+      "incoming": "StartEvent_1",
+      "outgoing": "Gateway_0388b5b"
+    },
+    "Gateway_0388b5b": {
+      "id": "Gateway_0388b5b",
+      "$type": "bpmn:ParallelGateway",
+      "name": "",
+      "incoming": [
+        "Flow_1kaiyre"
+      ],
+      "outgoing": [
+        "Flow_0mveiu8",
+        "Flow_06stx3h",
+        "Flow_150yqro"
+      ]
+    },
+    "Activity_14ks4h7": {
+      "id": "Activity_14ks4h7",
+      "$type": "bpmn:Task",
+      "name": "P1",
+      "incoming": "Flow_0mveiu8",
+      "outgoing": "Flow_08ytwjh",
+      "loopCondition": false
+    },
+    "Flow_0mveiu8": {
+      "id": "Flow_0mveiu8",
+      "name": "",
+      "$type": "bpmn:SequenceFlow",
+      "incoming": "Gateway_0388b5b",
+      "outgoing": "Activity_14ks4h7"
+    },
+    "Flow_08ytwjh": {
+      "id": "Flow_08ytwjh",
+      "name": "",
+      "$type": "bpmn:SequenceFlow",
+      "incoming": "Activity_14ks4h7",
+      "outgoing": "Gateway_0xhkj4b"
+    },
+    "Activity_1dagjx3": {
+      "id": "Activity_1dagjx3",
+      "$type": "bpmn:Task",
+      "name": "P2",
+      "incoming": "Flow_06stx3h",
+      "outgoing": "Flow_1pt5w13",
+      "loopCondition": false
+    },
+    "Flow_06stx3h": {
+      "id": "Flow_06stx3h",
+      "name": "",
+      "$type": "bpmn:SequenceFlow",
+      "incoming": "Gateway_0388b5b",
+      "outgoing": "Activity_1dagjx3"
+    },
+    "Gateway_0xhkj4b": {
+      "id": "Gateway_0xhkj4b",
+      "$type": "bpmn:ParallelGateway",
+      "name": "",
+      "incoming": [
+        "Flow_08ytwjh",
+        "Flow_029bm5j",
+        "Flow_0d1e16y"
+      ],
+      "outgoing": [
+        "Flow_14vvgzz"
+      ]
+    },
+    "Activity_044bdy7": {
+      "id": "Activity_044bdy7",
+      "$type": "bpmn:Task",
+      "name": "P3",
+      "incoming": "Flow_150yqro",
+      "outgoing": "Flow_029bm5j",
+      "loopCondition": false
+    },
+    "Flow_150yqro": {
+      "id": "Flow_150yqro",
+      "name": "",
+      "$type": "bpmn:SequenceFlow",
+      "incoming": "Gateway_0388b5b",
+      "outgoing": "Activity_044bdy7"
+    },
+    "Flow_1pt5w13": {
+      "id": "Flow_1pt5w13",
+      "name": "",
+      "$type": "bpmn:SequenceFlow",
+      "incoming": "Activity_1dagjx3",
+      "outgoing": "Activity_0nahlfb"
+    },
+    "Activity_0nahlfb": {
+      "id": "Activity_0nahlfb",
+      "$type": "bpmn:Task",
+      "name": "ag",
+      "incoming": "Flow_1pt5w13",
+      "outgoing": "Flow_0d1e16y",
+      "loopCondition": false
+    },
+    "Flow_029bm5j": {
+      "id": "Flow_029bm5j",
+      "name": "",
+      "$type": "bpmn:SequenceFlow",
+      "incoming": "Activity_044bdy7",
+      "outgoing": "Gateway_0xhkj4b"
+    },
+    "Event_09ew1er": {
+      "id": "Event_09ew1er",
+      "$type": "bpmn:EndEvent",
+      "name": "",
+      "incoming": "Flow_14vvgzz",
+      "isErrorEndEvent": false
+    },
+    "Flow_14vvgzz": {
+      "id": "Flow_14vvgzz",
+      "name": "",
+      "$type": "bpmn:SequenceFlow",
+      "incoming": "Gateway_0xhkj4b",
+      "outgoing": "Event_09ew1er"
+    },
+    "Flow_0d1e16y": {
+      "id": "Flow_0d1e16y",
+      "name": "",
+      "$type": "bpmn:SequenceFlow",
+      "incoming": "Activity_0nahlfb",
+      "outgoing": "Gateway_0xhkj4b"
+    }
+  }
+}

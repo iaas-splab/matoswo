@@ -1,0 +1,176 @@
+{
+  "startEvent": {
+    "id": "StartEvent_1",
+    "$type": "bpmn:StartEvent",
+    "name": "",
+    "outgoing": "Flow_0ynpf7j"
+  },
+  "elements": {
+    "StartEvent_1": {
+      "id": "StartEvent_1",
+      "$type": "bpmn:StartEvent",
+      "name": "",
+      "outgoing": "Flow_0ynpf7j"
+    },
+    "Activity_0cwbo8z": {
+      "id": "Activity_0cwbo8z",
+      "$type": "bpmn:Task",
+      "name": "IncreaseByOne",
+      "incoming": "Flow_0ynpf7j",
+      "outgoing": "Flow_1va0nx6",
+      "inputSchema": "{ \n   \"type\": \"object\",\n   \"properties\": {\n      \"counter\": {\n         \"type\": \"number\"\n      }\n   }\n}",
+      "outputSchema": "{ \n   \"type\": \"object\",\n   \"properties\": {\n      \"value\": {\n         \"type\": \"number\"\n      },\n      \"counter\": {\n         \"type\": \"number\"\n      }\n   }\n}",
+      "isFanout": false,
+      "isLoop": true,
+      "loopCondition": {
+        "comparison": {
+          "attributes": {
+            "variable": "counter"
+          },
+          "NumberLessThan": 5
+        }
+      }
+    },
+    "Flow_0ynpf7j": {
+      "id": "Flow_0ynpf7j",
+      "name": "",
+      "$type": "bpmn:SequenceFlow",
+      "incoming": "StartEvent_1",
+      "outgoing": "Activity_0cwbo8z"
+    },
+    "Gateway_1aqgrku": {
+      "id": "Gateway_1aqgrku",
+      "$type": "bpmn:ExclusiveGateway",
+      "name": "",
+      "incoming": [
+        "Flow_1va0nx6"
+      ],
+      "outgoing": [
+        "Flow_099x4pz",
+        "Flow_1o1dyv8",
+        "Flow_0wh07ak"
+      ],
+      "inputSchema": "{ \n   \"type\": \"object\",\n   \"properties\": {\n      \"value\": {\n         \"type\": \"number\"\n      },\n      \"counter\": {\n         \"type\": \"number\"\n      }\n   }\n}",
+      "outputSchema": "{ \n   \"type\": \"object\",\n   \"properties\": {\n      \"value\": {\n         \"type\": \"number\"\n      },\n      \"counter\": {\n         \"type\": \"number\"\n      }\n   }\n}",
+      "branches": {
+        "LT10": {
+          "comparison": {
+            "attributes": {
+              "variable": "value"
+            },
+            "NumberLessThan": 10
+          }
+        },
+        "GT10": {
+          "comparison": {
+            "attributes": {
+              "variable": "value"
+            },
+            "NumberGreaterThan": 10
+          }
+        }
+      }
+    },
+    "Flow_1va0nx6": {
+      "id": "Flow_1va0nx6",
+      "name": "",
+      "$type": "bpmn:SequenceFlow",
+      "incoming": "Activity_0cwbo8z",
+      "outgoing": "Gateway_1aqgrku"
+    },
+    "Activity_1ip7n8j": {
+      "id": "Activity_1ip7n8j",
+      "$type": "bpmn:Task",
+      "name": "TaskLessThan10",
+      "incoming": "Flow_099x4pz",
+      "outgoing": "Flow_1cfem9u",
+      "loopCondition": false
+    },
+    "Flow_099x4pz": {
+      "id": "Flow_099x4pz",
+      "name": "LT10",
+      "$type": "bpmn:SequenceFlow",
+      "incoming": "Gateway_1aqgrku",
+      "outgoing": "Activity_1ip7n8j"
+    },
+    "Activity_0aqlglq": {
+      "id": "Activity_0aqlglq",
+      "$type": "bpmn:Task",
+      "name": "TaskElseIs10",
+      "incoming": "Flow_1o1dyv8",
+      "outgoing": "Flow_0e66amc",
+      "loopCondition": false
+    },
+    "Flow_1o1dyv8": {
+      "id": "Flow_1o1dyv8",
+      "name": "default",
+      "$type": "bpmn:SequenceFlow",
+      "incoming": "Gateway_1aqgrku",
+      "outgoing": "Activity_0aqlglq"
+    },
+    "Gateway_0qdpdnj": {
+      "id": "Gateway_0qdpdnj",
+      "$type": "bpmn:ExclusiveGateway",
+      "name": "",
+      "incoming": [
+        "Flow_0e66amc",
+        "Flow_1cfem9u",
+        "Flow_0w0nyod"
+      ],
+      "outgoing": [
+        "Flow_0aa1iua"
+      ],
+      "branches": false
+    },
+    "Flow_0e66amc": {
+      "id": "Flow_0e66amc",
+      "name": "",
+      "$type": "bpmn:SequenceFlow",
+      "incoming": "Activity_0aqlglq",
+      "outgoing": "Gateway_0qdpdnj"
+    },
+    "Event_0i67nof": {
+      "id": "Event_0i67nof",
+      "$type": "bpmn:EndEvent",
+      "name": "",
+      "incoming": "Flow_0aa1iua",
+      "isErrorEndEvent": false
+    },
+    "Flow_0aa1iua": {
+      "id": "Flow_0aa1iua",
+      "name": "",
+      "$type": "bpmn:SequenceFlow",
+      "incoming": "Gateway_0qdpdnj",
+      "outgoing": "Event_0i67nof"
+    },
+    "Flow_1cfem9u": {
+      "id": "Flow_1cfem9u",
+      "name": "",
+      "$type": "bpmn:SequenceFlow",
+      "incoming": "Activity_1ip7n8j",
+      "outgoing": "Gateway_0qdpdnj"
+    },
+    "Activity_13oiqvl": {
+      "id": "Activity_13oiqvl",
+      "$type": "bpmn:Task",
+      "name": "TaskGreaterThan10",
+      "incoming": "Flow_0wh07ak",
+      "outgoing": "Flow_0w0nyod",
+      "loopCondition": false
+    },
+    "Flow_0wh07ak": {
+      "id": "Flow_0wh07ak",
+      "name": "GT10",
+      "$type": "bpmn:SequenceFlow",
+      "incoming": "Gateway_1aqgrku",
+      "outgoing": "Activity_13oiqvl"
+    },
+    "Flow_0w0nyod": {
+      "id": "Flow_0w0nyod",
+      "name": "",
+      "$type": "bpmn:SequenceFlow",
+      "incoming": "Activity_13oiqvl",
+      "outgoing": "Gateway_0qdpdnj"
+    }
+  }
+}

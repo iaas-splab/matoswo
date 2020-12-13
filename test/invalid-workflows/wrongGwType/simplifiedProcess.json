@@ -1,0 +1,121 @@
+{
+  "startEvent": {
+    "id": "StartEvent_1",
+    "$type": "bpmn:StartEvent",
+    "name": "",
+    "outgoing": "Flow_1amrjh2"
+  },
+  "elements": {
+    "StartEvent_1": {
+      "id": "StartEvent_1",
+      "$type": "bpmn:StartEvent",
+      "name": "",
+      "outgoing": "Flow_1amrjh2"
+    },
+    "Activity_1smcx45": {
+      "id": "Activity_1smcx45",
+      "$type": "bpmn:Task",
+      "name": "Init",
+      "incoming": "Flow_1amrjh2",
+      "outgoing": "Flow_1gq5n6w",
+      "loopCondition": false
+    },
+    "Flow_1amrjh2": {
+      "id": "Flow_1amrjh2",
+      "name": "",
+      "$type": "bpmn:SequenceFlow",
+      "incoming": "StartEvent_1",
+      "outgoing": "Activity_1smcx45"
+    },
+    "Flow_1gq5n6w": {
+      "id": "Flow_1gq5n6w",
+      "name": "",
+      "$type": "bpmn:SequenceFlow",
+      "incoming": "Activity_1smcx45",
+      "outgoing": "Gateway_1lbajtb"
+    },
+    "Gateway_1lbajtb": {
+      "id": "Gateway_1lbajtb",
+      "$type": "bpmn:ParallelGateway",
+      "name": "",
+      "incoming": [
+        "Flow_1gq5n6w"
+      ],
+      "outgoing": [
+        "Flow_1nt7pvo",
+        "Flow_00y297n"
+      ]
+    },
+    "Activity_00ecg5h": {
+      "id": "Activity_00ecg5h",
+      "$type": "bpmn:Task",
+      "name": "P1",
+      "incoming": "Flow_1nt7pvo",
+      "outgoing": "Flow_1crik3t",
+      "loopCondition": false
+    },
+    "Flow_1nt7pvo": {
+      "id": "Flow_1nt7pvo",
+      "name": "",
+      "$type": "bpmn:SequenceFlow",
+      "incoming": "Gateway_1lbajtb",
+      "outgoing": "Activity_00ecg5h"
+    },
+    "Activity_0evo6y1": {
+      "id": "Activity_0evo6y1",
+      "$type": "bpmn:Task",
+      "name": "P1",
+      "incoming": "Flow_00y297n",
+      "outgoing": "Flow_08rppdf",
+      "loopCondition": false
+    },
+    "Flow_00y297n": {
+      "id": "Flow_00y297n",
+      "name": "",
+      "$type": "bpmn:SequenceFlow",
+      "incoming": "Gateway_1lbajtb",
+      "outgoing": "Activity_0evo6y1"
+    },
+    "Gateway_1xztx04": {
+      "id": "Gateway_1xztx04",
+      "$type": "bpmn:ExclusiveGateway",
+      "name": "",
+      "incoming": [
+        "Flow_08rppdf",
+        "Flow_1crik3t"
+      ],
+      "outgoing": [
+        "Flow_0lti5ki"
+      ],
+      "branches": false
+    },
+    "Flow_08rppdf": {
+      "id": "Flow_08rppdf",
+      "name": "",
+      "$type": "bpmn:SequenceFlow",
+      "incoming": "Activity_0evo6y1",
+      "outgoing": "Gateway_1xztx04"
+    },
+    "Event_1y146ox": {
+      "id": "Event_1y146ox",
+      "$type": "bpmn:EndEvent",
+      "name": "",
+      "incoming": "Flow_0lti5ki",
+      "isErrorEndEvent": false
+    },
+    "Flow_0lti5ki": {
+      "id": "Flow_0lti5ki",
+      "name": "",
+      "$type": "bpmn:SequenceFlow",
+      "incoming": "Gateway_1xztx04",
+      "outgoing": "Event_1y146ox"
+    },
+    "Flow_1crik3t": {
+      "id": "Flow_1crik3t",
+      "name": "",
+      "$type": "bpmn:SequenceFlow",
+      "incoming": "Activity_00ecg5h",
+      "outgoing": "Gateway_1xztx04"
+    }
+  }
+}
