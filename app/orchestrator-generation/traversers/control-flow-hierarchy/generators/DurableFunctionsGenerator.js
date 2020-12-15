@@ -10,7 +10,7 @@ import {ComposerConditionGenerator} from '../../condition/generators/ComposerCon
 import {BaseOrchestratorGenerator} from './BaseOrchestratorGenerator';
 
 /**
- * Traverse a control flow hierarchy and generate a Durable Functions orchestrator from the modeled workflow.
+ * Traverse a control flow hierarchy and generate a Durable Functions workflow definition from the modeled workflow.
  */
 export class DurableFunctionsGenerator extends BaseOrchestratorGenerator {
 

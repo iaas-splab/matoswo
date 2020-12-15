@@ -3,7 +3,7 @@ import {StepFunctionsConditionGenerator} from '../../condition/generators/StepFu
 import {BaseOrchestratorGenerator} from './BaseOrchestratorGenerator';
 
 /**
- * Traverse a control flow hierarchy and generate a Step Functions orchestrator from the modeled workflow.
+ * Traverse a control flow hierarchy and generate a Step Functions workflow definition from the modeled workflow.
  */
 export class StepFunctionsGenerator extends BaseOrchestratorGenerator {
 

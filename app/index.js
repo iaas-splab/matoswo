@@ -142,10 +142,10 @@ $(function () {
             setEncoded(downloadLink, 'diagram.bpmn', null);
         }
 
-        ///////////////////////////////////////////////////////////////////////////////////
-        // generate the orchestrators from the bpmn and make them available for download //
-        // as zip archives at their respective download buttons                          //
-        ///////////////////////////////////////////////////////////////////////////////////
+        /////////////////////////////////////////////////////////////////////////////////////
+        // generate the workflow definitions from the bpmn and make available for download //
+        // as zip archives at their respective download buttons                            //
+        /////////////////////////////////////////////////////////////////////////////////////
 
         try {
             const bpmnJson = bpmnModeler.get('canvas').getRootElement().businessObject.$parent;
@@ -159,7 +159,7 @@ $(function () {
                 await btoc.convertJsonToOrchestrator(bpmnJson, new StepFunctionsGenerator(awsAccountId, awsAccountRegion), [new StrictModelValidator()])
             );
         } catch (err) {
-            console.error('Error happened saving generated Step Functions orchestrators: ', err);
+            console.error('Error happened saving generated Step Functions workflow definition: ', err);
             setEncoded(downloadStepFunctionsLink, 'AWS_StepFunctions.zip', null);
         }
 
@@ -173,7 +173,7 @@ $(function () {
                 await btoc.convertJsonToOrchestrator(bpmnJson, new DurableFunctionsGenerator(), [new StrictModelValidator()])
             );
         } catch (err) {
-            console.error('Error happened saving generated Durable Functions orchestrator: ', err);
+            console.error('Error happened saving generated Durable Functions workflow definition: ', err);
             setEncoded(downloadDurableFunctionsLink, 'Azure_DurableFunctions.zip', null);
         }
 
@@ -187,7 +187,7 @@ $(function () {
                 await btoc.convertJsonToOrchestrator(bpmnJson, new ComposerGenerator(), [new StrictModelValidator()])
             );
         } catch (err) {
-            console.error('Error happened saving generated Composer orchestrator: ', err);
+            console.error('Error happened saving generated Composer workflow definition: ', err);
             setEncoded(downloadOpenWhiskComposerLink, 'OpenWhisk_Composer.zip', null);
         }
     }, 500);

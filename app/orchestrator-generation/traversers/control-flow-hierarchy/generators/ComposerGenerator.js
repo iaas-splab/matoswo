@@ -1,9 +1,14 @@
-import {DEFAULT_BRANCH, DEFAULT_COMPOSER_TIMEOUT, DEFAULT_RETRY_COUNT} from '../../../util/Constants';
+import {
+    DEFAULT_BRANCH,
+    DEFAULT_COMPOSER_TIMEOUT,
+    DEFAULT_DURABLE_FUNCTIONS_TIMEOUT,
+    DEFAULT_RETRY_COUNT
+} from '../../../util/Constants';
 import {ComposerConditionGenerator} from '../../condition/generators/ComposerConditionGenerator';
 import {BaseOrchestratorGenerator} from './BaseOrchestratorGenerator';
 
 /**
- * Traverse a control flow hierarchy and generate a Composer orchestrator from the modeled workflow.
+ * Traverse a control flow hierarchy and generate a Composer workflow definition from the modeled workflow.
  */
 export class ComposerGenerator extends BaseOrchestratorGenerator {
 
@@ -40,6 +45,8 @@ export class ComposerGenerator extends BaseOrchestratorGenerator {
 
         if (task.getTimeoutMilliseconds() && task.getTimeoutMilliseconds() !== DEFAULT_COMPOSER_TIMEOUT) {
             generated += ', { limits: { timeout: ' + task.getTimeoutMilliseconds() + ' } }';
+        } else {
+            generated += ', { limits: { timeout: ' + DEFAULT_DURABLE_FUNCTIONS_TIMEOUT + ' } }';
         }
 
         generated += ')';

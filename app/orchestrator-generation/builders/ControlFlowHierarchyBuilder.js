@@ -39,7 +39,7 @@ export class ControlFlowHierarchyBuilder {
 
     /**
      * Build a hierarchy of control flow elements representing a serverless workflow.
-     * From this hierarchy, the various orchestrators can be generated.
+     * From this hierarchy, the various orchestrator-specific workflow definitions can be generated.
      *
      * Input is a simplified process (from extractors/ProcessExtractor) representing a serverless workflow.
      */
