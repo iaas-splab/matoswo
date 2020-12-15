@@ -1,4 +1,4 @@
-import {DEFAULT_BRANCH, DEFAULT_DURABLE_FUNCTIONS_TIMEOUT, DEFAULT_RETRY_COUNT} from '../../../util/Constants';
+import {DEFAULT_BRANCH, DEFAULT_DURABLE_FUNCTIONS_TIMEOUT} from '../../../util/Constants';
 import {StepFunctionsConditionGenerator} from '../../condition/generators/StepFunctionsConditionGenerator';
 import {BaseOrchestratorGenerator} from './BaseOrchestratorGenerator';
 
@@ -265,15 +265,17 @@ export class StepFunctionsGenerator extends BaseOrchestratorGenerator {
             generated += DEFAULT_DURABLE_FUNCTIONS_TIMEOUT + ', ';
         }
 
-        if (element.getRetryCount() && element.getRetryCount() !== DEFAULT_RETRY_COUNT) {
-            generated += '\n' + indentation + this.indent(1) + '"Retry": [';
-            generated += '\n' + indentation + this.indent(2) + '{';
-            generated += '\n' + indentation + this.indent(3) + '"ErrorEquals": [ "States.ALL" ],';
-            generated += '\n' + indentation + this.indent(3) + '"MaxAttempts": ' + element.getRetryCount() + ',';
-            generated += '\n' + indentation + this.indent(3) + '"BackoffRate": 1.0';
-            generated += '\n' + indentation + this.indent(2) + '}';
-            generated += '\n' + indentation + this.indent(1) + '],';
+        // Step Functions has a default retry count of 3, set to 0 if not specified (so it matches others)
+        const retryCount = element.getRetryCount() ? element.getRetryCount() : 0;
+        generated += '\n' + indentation + this.indent(1) + '"Retry": [';
+        generated += '\n' + indentation + this.indent(2) + '{';
+        generated += '\n' + indentation + this.indent(3) + '"ErrorEquals": [ "States.ALL" ],';
+        generated += '\n' + indentation + this.indent(3) + '"MaxAttempts": ' + element.getRetryCount() ;
+        if (retryCount > 0) {
+            generated += ',\n' + indentation + this.indent(3) + '"BackoffRate": 1.0';
         }
+        generated += '\n' + indentation + this.indent(2) + '}';
+        generated += '\n' + indentation + this.indent(1) + '],';
 
         if (element.getErrorHandler()) {
             generated += '\n' + indentation + this.indent(1) + '"Catch": ['

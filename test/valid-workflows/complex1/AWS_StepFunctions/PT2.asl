@@ -12,6 +12,12 @@
             "Type": "Task",
             "Resource": "arn:aws:lambda:ACCOUNT_REGION_HERE:ACCOUNT_ID_HERE:function:PT2T1",
             "TimeoutSeconds": 300000, 
+            "Retry": [
+              {
+                "ErrorEquals": [ "States.ALL" ],
+                "MaxAttempts": 0
+              }
+            ],
             "End": true
           }
         }
@@ -54,6 +60,12 @@
       "Type": "Task",
       "Resource": "arn:aws:lambda:ACCOUNT_REGION_HERE:ACCOUNT_ID_HERE:function:P2T2",
       "TimeoutSeconds": 300000, 
+      "Retry": [
+        {
+          "ErrorEquals": [ "States.ALL" ],
+          "MaxAttempts": 0
+        }
+      ],
       "Catch": [
         {
           "ErrorEquals": [ "States.ALL" ],
@@ -66,6 +78,12 @@
       "Type": "Task",
       "Resource": "arn:aws:lambda:ACCOUNT_REGION_HERE:ACCOUNT_ID_HERE:function:ttttttttt",
       "TimeoutSeconds": 300000, 
+      "Retry": [
+        {
+          "ErrorEquals": [ "States.ALL" ],
+          "MaxAttempts": 0
+        }
+      ],
       "Next": "ErrortttttttttActivity_1gpx43q"
     },
     "ErrortttttttttActivity_1gpx43q": {

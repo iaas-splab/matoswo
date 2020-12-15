@@ -16,6 +16,12 @@
       "Type": "Task",
       "Resource": "arn:aws:lambda:ACCOUNT_REGION_HERE:ACCOUNT_ID_HERE:function:IncreaseByOne",
       "TimeoutSeconds": 300000, 
+      "Retry": [
+        {
+          "ErrorEquals": [ "States.ALL" ],
+          "MaxAttempts": 0
+        }
+      ],
       "Next": "IncreaseByOneLoopActivity_0cwbo8z"
     },
     "Gateway_1aqgrku": {
@@ -38,18 +44,36 @@
       "Type": "Task",
       "Resource": "arn:aws:lambda:ACCOUNT_REGION_HERE:ACCOUNT_ID_HERE:function:TaskLessThan10",
       "TimeoutSeconds": 300000, 
+      "Retry": [
+        {
+          "ErrorEquals": [ "States.ALL" ],
+          "MaxAttempts": 0
+        }
+      ],
       "End": true
     },
     "TaskGreaterThan10Activity_13oiqvl": {
       "Type": "Task",
       "Resource": "arn:aws:lambda:ACCOUNT_REGION_HERE:ACCOUNT_ID_HERE:function:TaskGreaterThan10",
       "TimeoutSeconds": 300000, 
+      "Retry": [
+        {
+          "ErrorEquals": [ "States.ALL" ],
+          "MaxAttempts": 0
+        }
+      ],
       "End": true
     },
     "TaskElseIs10Activity_0aqlglq": {
       "Type": "Task",
       "Resource": "arn:aws:lambda:ACCOUNT_REGION_HERE:ACCOUNT_ID_HERE:function:TaskElseIs10",
       "TimeoutSeconds": 300000, 
+      "Retry": [
+        {
+          "ErrorEquals": [ "States.ALL" ],
+          "MaxAttempts": 0
+        }
+      ],
       "End": true
     }
   }

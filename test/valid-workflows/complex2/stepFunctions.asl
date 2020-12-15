@@ -5,6 +5,12 @@
       "Type": "Task",
       "Resource": "arn:aws:lambda:ACCOUNT_REGION_HERE:ACCOUNT_ID_HERE:function:Task1",
       "TimeoutSeconds": 300000, 
+      "Retry": [
+        {
+          "ErrorEquals": [ "States.ALL" ],
+          "MaxAttempts": 0
+        }
+      ],
       "Next": "Gateway_176tnp7"
     },
     "Gateway_176tnp7": {
@@ -40,6 +46,12 @@
       "Type": "Task",
       "Resource": "arn:aws:lambda:ACCOUNT_REGION_HERE:ACCOUNT_ID_HERE:function:Task7",
       "TimeoutSeconds": 300000, 
+      "Retry": [
+        {
+          "ErrorEquals": [ "States.ALL" ],
+          "MaxAttempts": 0
+        }
+      ],
       "Next": "Task5Activity_1brsihq"
     },
     "Gateway_0ofnafm": {
@@ -75,12 +87,24 @@
       "Type": "Task",
       "Resource": "arn:aws:lambda:ACCOUNT_REGION_HERE:ACCOUNT_ID_HERE:function:Task6",
       "TimeoutSeconds": 300000, 
+      "Retry": [
+        {
+          "ErrorEquals": [ "States.ALL" ],
+          "MaxAttempts": 0
+        }
+      ],
       "Next": "Task5Activity_1brsihq"
     },
     "Task2Activity_0x31p4i": {
       "Type": "Task",
       "Resource": "arn:aws:lambda:ACCOUNT_REGION_HERE:ACCOUNT_ID_HERE:function:Task2",
       "TimeoutSeconds": 300000, 
+      "Retry": [
+        {
+          "ErrorEquals": [ "States.ALL" ],
+          "MaxAttempts": 0
+        }
+      ],
       "Next": "Gateway_0us6aju"
     },
     "Gateway_0us6aju": {
@@ -94,6 +118,12 @@
               "Type": "Task",
               "Resource": "arn:aws:lambda:ACCOUNT_REGION_HERE:ACCOUNT_ID_HERE:function:Task3",
               "TimeoutSeconds": 300000, 
+              "Retry": [
+                {
+                  "ErrorEquals": [ "States.ALL" ],
+                  "MaxAttempts": 0
+                }
+              ],
               "End": true
             }
           }
@@ -105,6 +135,12 @@
               "Type": "Task",
               "Resource": "arn:aws:lambda:ACCOUNT_REGION_HERE:ACCOUNT_ID_HERE:function:Task4",
               "TimeoutSeconds": 300000, 
+              "Retry": [
+                {
+                  "ErrorEquals": [ "States.ALL" ],
+                  "MaxAttempts": 0
+                }
+              ],
               "End": true
             }
           }
@@ -116,6 +152,12 @@
       "Type": "Task",
       "Resource": "arn:aws:lambda:ACCOUNT_REGION_HERE:ACCOUNT_ID_HERE:function:Task5",
       "TimeoutSeconds": 300000, 
+      "Retry": [
+        {
+          "ErrorEquals": [ "States.ALL" ],
+          "MaxAttempts": 0
+        }
+      ],
       "End": true
     }
   }

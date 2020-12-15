@@ -24,6 +24,12 @@
       "Type": "Task",
       "Resource": "arn:aws:lambda:ACCOUNT_REGION_HERE:ACCOUNT_ID_HERE:function:ERTTTT",
       "TimeoutSeconds": 300000, 
+      "Retry": [
+        {
+          "ErrorEquals": [ "States.ALL" ],
+          "MaxAttempts": 0
+        }
+      ],
       "End": true
     },
     "ifConditionGateway_0ea1v07": {
@@ -97,6 +103,12 @@
       },
       "OutputPath": "$.Output",
       "TimeoutSeconds": 300000, 
+      "Retry": [
+        {
+          "ErrorEquals": [ "States.ALL" ],
+          "MaxAttempts": 0
+        }
+      ],
       "Catch": [
         {
           "ErrorEquals": [ "States.ALL" ],
@@ -109,6 +121,12 @@
       "Type": "Task",
       "Resource": "arn:aws:lambda:ACCOUNT_REGION_HERE:ACCOUNT_ID_HERE:function:Err1",
       "TimeoutSeconds": 300000, 
+      "Retry": [
+        {
+          "ErrorEquals": [ "States.ALL" ],
+          "MaxAttempts": 0
+        }
+      ],
       "Next": "Event_0zx36p2"
     },
     "Event_0zx36p2": {
@@ -154,6 +172,12 @@
               },
               "OutputPath": "$.Output",
               "TimeoutSeconds": 300000, 
+              "Retry": [
+                {
+                  "ErrorEquals": [ "States.ALL" ],
+                  "MaxAttempts": 0
+                }
+              ],
               "End": true
             }
           }
@@ -165,6 +189,12 @@
       "Type": "Task",
       "Resource": "arn:aws:lambda:ACCOUNT_REGION_HERE:ACCOUNT_ID_HERE:function:ET",
       "TimeoutSeconds": 300000, 
+      "Retry": [
+        {
+          "ErrorEquals": [ "States.ALL" ],
+          "MaxAttempts": 0
+        }
+      ],
       "Catch": [
         {
           "ErrorEquals": [ "States.ALL" ],
@@ -209,6 +239,12 @@
       "Type": "Task",
       "Resource": "arn:aws:lambda:ACCOUNT_REGION_HERE:ACCOUNT_ID_HERE:function:gdfgdsf",
       "TimeoutSeconds": 300000, 
+      "Retry": [
+        {
+          "ErrorEquals": [ "States.ALL" ],
+          "MaxAttempts": 0
+        }
+      ],
       "Next": "gdfgdsfLoopActivity_1ytkbco"
     }
   }

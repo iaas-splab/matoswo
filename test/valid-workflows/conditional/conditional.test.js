@@ -51,6 +51,7 @@ describe("StepFunctionsGenerator", function () {
             const orchestrators = getOrchestratorDict(sfg.getOutputFiles());
 
             expect(Object.keys(orchestrators).length).equal(1);
+            console.log(orchestrators["main-orchestrator.asl"])
             expect(orchestrators["main-orchestrator.asl"]).equal(fs.readFileSync(wfLocation + 'stepFunctions.asl', { encoding: 'utf8' }));
         });
     });
