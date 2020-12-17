@@ -25,7 +25,9 @@ The `app/descriptors` and `app/provider` folders contain these customizations.
 `bpmn-js` is set up via in the top-level `app/index.html` and `app/index.js` files.
 The workflows modeled in the user interface's modeling area can be transformed into the orchestrator-specific workflow definitions with the help of the `app/orchestrator-generation/BpmnModelOrchestratorTransformation` class, invoked by the user interface.
 
-The [folder structure](folder-overview.png) shows the components of MaToSWo, each in its own folder.
+The components of MaToSWo are each separated into their own folders.
+
+![folder structure](folder-overview.png)
 
 The `orchestrator-generation/extractors` component is invoked first with the user-created BPMN model as input.
 The model is then converted into a simplified version, where each supported model element is handled separately.

@@ -43,7 +43,14 @@ export class BaseConditionTraverser {
     traverseAnd(and, element) {
         this.enterAnd();
 
-        if (Object.keys(and).length < 2) {
+        if (Object.keys(and).length === 1) {
+            let key = Object.keys(and)[0];
+            if (key === 'comparison' && Object.keys(and["comparison"]).length >=2 && !and["comparison"]["attributes"]) {
+                // there are two+ comparisons embedded: Ok
+            } else {
+                throw 'Element with id: ' + element.getId() + ' - and condition has invalid comparison' + JSON.stringify(and);
+            }
+        } else if (Object.keys(and).length < 1) {
             throw 'Element with id: ' + element.getId() + ' - and condition must have at least two children' + JSON.stringify(and);
         }
 
@@ -52,7 +59,7 @@ export class BaseConditionTraverser {
             let key = keys[i];
 
             if (key === 'comparison') {
-                this.traverseComparison(and[key], element);
+                this.traverseComparison(and[key], element, 0);
             } else if (key === 'or') {
                 this.traverseOr(and[key], element);
             } else if (key === 'not') {
@@ -84,7 +91,14 @@ export class BaseConditionTraverser {
     traverseOr(or, element) {
         this.enterOr();
 
-        if (Object.keys(or).length < 2) {
+        if (Object.keys(or).length === 1) {
+            let key = Object.keys(or)[0];
+            if (key === 'comparison' && Object.keys(or["comparison"]).length >=2 && !or["comparison"]["attributes"]) {
+                // there are two+ comparisons embedded: Ok
+            } else {
+                throw 'Element with id: ' + element.getId() + ' - or condition has invalid comparison' + JSON.stringify(or);
+            }
+        } else if (Object.keys(or).length < 1) {
             throw 'Element with id: ' + element.getId() + ' - or condition must have at least two children' + JSON.stringify(or);
         }
 
@@ -93,7 +107,7 @@ export class BaseConditionTraverser {
             let key = keys[i];
 
             if (key === 'comparison') {
-                this.traverseComparison(or[key], element);
+                this.traverseComparison(or[key], element, 1);
             } else if (key === 'and') {
                 this.traverseAnd(or[key], element);
             } else if (key === 'not') {
@@ -190,11 +204,26 @@ export class BaseConditionTraverser {
         return string.replace('\\', '\\\\').replace('"', '\\"');
     }
 
-    traverseComparison(comparison, element) {
-        if (Object.keys(comparison).length !== 2) { // seconds is element holding attributes
+    traverseComparison(comparison, element, optionalSeparate) { // 0 = and, 1 = else 
+        if (Object.keys(comparison).length >= 2) {
+            if (comparison["attributes"]) { // single comparison
+                this.handleComparisonActual(comparison, element);
+            } else { // ok, but multiple comparisons
+                for (let i = 0; i < comparison.length; i++) {
+                    this.handleComparisonActual(comparison[i], element);
+                    if (optionalSeparate === 0 && i < comparison.length -1) {
+                        this.separateAnd();
+                    } else if (optionalSeparate === 1 && i < comparison.length -1) {
+                        this.separateOr();
+                    }
+                }
+            }
+        } else {
             throw 'Element with id: ' + element.getId() + ' - comparison must have one child' + JSON.stringify(comparison);
         }
+    }
 
+    handleComparisonActual(comparison, element) {
         let variable = this.getVariable(comparison, element);
         this.appendVisitedVariable(variable, element);
 
