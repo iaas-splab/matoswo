@@ -13,6 +13,7 @@ import {BpmnModelOrchestratorTransformation} from './orchestrator-generation/Bpm
 import {StrictModelValidator} from './orchestrator-generation/traversers/control-flow-hierarchy/validators/StrictModelValidator';
 import {StepFunctionsGenerator} from './orchestrator-generation/traversers/control-flow-hierarchy/generators/StepFunctionsGenerator';
 import {DurableFunctionsGenerator} from './orchestrator-generation/traversers/control-flow-hierarchy/generators/DurableFunctionsGenerator';
+import {DurableFunctionsPythonGenerator} from './orchestrator-generation/traversers/control-flow-hierarchy/generators/DurableFunctionsPythonGenerator';
 import {ComposerGenerator} from './orchestrator-generation/traversers/control-flow-hierarchy/generators/ComposerGenerator';
 
 var container = $('#js-drop-zone');
@@ -99,6 +100,7 @@ $(function () {
     var downloadSvgLink = $('#js-download-svg');
     var downloadStepFunctionsLink = $('#js-download-aws-step-functions');
     var downloadDurableFunctionsLink = $('#js-download-azure-durable-functions');
+    var downloadDurablePythonFunctionsLink = $('#js-download-azure-durable-python-functions');
     var downloadOpenWhiskComposerLink = $('#js-download-apache-openwhisk-composer');
 
     $('.buttons a').click(function (e) {
@@ -175,6 +177,20 @@ $(function () {
         } catch (err) {
             console.error('Error happened saving generated Durable Functions workflow definition: ', err);
             setEncoded(downloadDurableFunctionsLink, 'Azure_DurableFunctions.zip', null);
+        }
+
+        try {
+            const bpmnJson = bpmnModeler.get('canvas').getRootElement().businessObject.$parent;
+            const btoc = new BpmnModelOrchestratorTransformation();
+
+            setEncoded(
+                downloadDurablePythonFunctionsLink,
+                'Azure_DurableFunctionsPython.zip',
+                await btoc.convertJsonToOrchestrator(bpmnJson, new DurableFunctionsPythonGenerator(), [new StrictModelValidator()])
+            );
+        } catch (err) {
+            console.error('Error happened saving generated Durable Functions Python workflow definition: ', err);
+            setEncoded(downloadDurableFunctionsLink, 'Azure_DurableFunctionsPython.zip', null);
         }
 
         try {
