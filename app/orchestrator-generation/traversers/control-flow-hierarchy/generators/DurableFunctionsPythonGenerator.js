@@ -34,6 +34,7 @@ export class DurableFunctionsPythonGenerator extends BaseOrchestratorGenerator {
         generated += '\n\ndef orchestrator_function(context: df.DurableOrchestrationContext):';
         generated += '\n' + this.indent(2) + 'result = context.get_input()';
         generated += generatedOrchestrator;
+        generated += '\n' + this.indent(2) + 'return result';
         generated += '\n\nmain = df.Orchestrator.create(orchestrator_function)';
         this.getOutputFiles().push({name: name + '.py', content: generated});
     }
@@ -194,9 +195,9 @@ export class DurableFunctionsPythonGenerator extends BaseOrchestratorGenerator {
 
     generateActivityCall(activity, withRetry) {
         if (!withRetry) {
-            return (activity.getType() === TASK) ? 'context.call_activity_task' : 'context.call_sub_orchestrator_task';
+            return (activity.getType() === TASK) ? 'context.call_activity' : 'context.call_sub_orchestrator';
         } else {
-            return (activity.getType() === TASK) ? 'context.call_activity_with_retry_task' : 'context.call_sub_orchestrator_with_retry_task';
+            return (activity.getType() === TASK) ? 'context.call_activity_with_retry' : 'context.call_sub_orchestrator_with_retry';
         }
     }
 
