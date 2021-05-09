@@ -2,12 +2,16 @@ import {DEFAULT_BRANCH, DEFAULT_DURABLE_FUNCTIONS_TIMEOUT} from '../../../util/C
 import {StepFunctionsConditionGenerator} from '../../condition/generators/StepFunctionsConditionGenerator';
 import {BaseOrchestratorGenerator} from './BaseOrchestratorGenerator';
 
+
+const AWS_ACCOUNT_ID = "ACCOUNT_ID_HERE";
+const AWS_ACCOUNT_REGION = "ACCOUNT_REGION_HERE";
+
 /**
  * Traverse a control flow hierarchy and generate a Step Functions workflow definition from the modeled workflow.
  */
 export class StepFunctionsGenerator extends BaseOrchestratorGenerator {
 
-    constructor(awsAccountId = "ACCOUNT_ID_HERE", awsAccountRegion = "ACCOUNT_REGION_HERE") {
+    constructor(awsAccountId = AWS_ACCOUNT_ID, awsAccountRegion = AWS_ACCOUNT_REGION) {
         super();
         this.awsAccountId = awsAccountId;
         this.awsAccountRegion = awsAccountRegion;
@@ -50,7 +54,14 @@ export class StepFunctionsGenerator extends BaseOrchestratorGenerator {
     traverseTask(task, indentation, nextState) {
         let generated = this.generateStateHeader(task, indentation);
         generated += '\n' + indentation + this.indent(1) + '"Type": "Task",'
-        generated += '\n' + indentation + this.indent(1) + '"Resource": "arn:aws:lambda:' + this.awsAccountRegion + ':' + this.awsAccountId + ':function:' + task.getName() + '",';
+
+        if (this.awsAccountRegion === AWS_ACCOUNT_REGION && this.awsAccountId === AWS_ACCOUNT_ID) {
+            // use generic value task_name_ARN if no account details specified
+            generated += '\n' + indentation + this.indent(1) + '"Resource": "' + task.getName() + '_ARN' + '",';
+        } else {
+            generated += '\n' + indentation + this.indent(1) + '"Resource": "arn:aws:lambda:' + this.awsAccountRegion + ':' + this.awsAccountId + ':function:' + task.getName() + '",';
+        }
+
         generated += this.generateTimeoutRetry(task, indentation);
         generated += this.generateStateFooter(nextState, indentation, task);
         generated += this.generateErrorHandler(task, indentation);
@@ -68,7 +79,14 @@ export class StepFunctionsGenerator extends BaseOrchestratorGenerator {
         generated += '\n' + indentation + this.indent(1) + '"Type": "Task",';
         generated += '\n' + indentation + this.indent(1) + '"Resource": "arn:aws:states:::states:startExecution.sync:2",';
         generated += '\n' + indentation + this.indent(1) + '"Parameters": {';
-        generated += '\n' + indentation + this.indent(2) + '"StateMachineArn": "arn:aws:states:' + this.awsAccountRegion + ':' + this.awsAccountId + ':stateMachine:' + subWorkflowBlock.getName() + '",';
+
+        if (this.awsAccountRegion === AWS_ACCOUNT_REGION && this.awsAccountId === AWS_ACCOUNT_ID) {
+            // use generic value task_name_ARN if no account details specified
+            generated += '\n' + indentation + this.indent(2) + '"StateMachineArn": "' + subWorkflowBlock.getName() + '_ARN' + '",';
+        } else {
+            generated += '\n' + indentation + this.indent(2) + '"StateMachineArn": "arn:aws:states:' + this.awsAccountRegion + ':' + this.awsAccountId + ':stateMachine:' + subWorkflowBlock.getName() + '",';
+        }
+
         generated += '\n' + indentation + this.indent(2) + '"Input": {';
         generated += '\n' + indentation + this.indent(3) + '"NeedCallback": false,';
         generated += '\n' + indentation + this.indent(3) + '"AWS_STEP_FUNCTIONS_STARTED_BY_EXECUTION_ID.$": "$$.Execution.Id",';
