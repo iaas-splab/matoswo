@@ -102,6 +102,7 @@ $(function () {
     var downloadDurableFunctionsLink = $('#js-download-azure-durable-functions');
     var downloadDurablePythonFunctionsLink = $('#js-download-azure-durable-python-functions');
     var downloadOpenWhiskComposerLink = $('#js-download-apache-openwhisk-composer');
+    var downloadIBMComposerLink = $('#js-download-ibm-composer');
 
     $('.buttons a').click(function (e) {
         if (!$(this).is('.active')) {
@@ -206,6 +207,21 @@ $(function () {
             console.error('Error happened saving generated Composer workflow definition: ', err);
             setEncoded(downloadOpenWhiskComposerLink, 'OpenWhisk_Composer.zip', null);
         }
+
+        try {
+            const bpmnJson = bpmnModeler.get('canvas').getRootElement().businessObject.$parent;
+            const btoc = new BpmnModelOrchestratorTransformation();
+
+            setEncoded(
+                downloadIBMComposerLink,
+                'IBM_Composer.zip',
+                await btoc.convertJsonToOrchestrator(bpmnJson, new ComposerGenerator(true), [new StrictModelValidator()])
+            );
+        } catch (err) {
+            console.error('Error happened saving generated Composer workflow definition: ', err);
+            setEncoded(downloadIBMComposerLink, 'IBM_Composer.zip', null);
+        }
+
     }, 500);
 
     bpmnModeler.on('commandStack.changed', exportArtifacts);

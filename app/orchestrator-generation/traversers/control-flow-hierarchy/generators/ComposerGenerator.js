@@ -11,12 +11,18 @@ import {BaseOrchestratorGenerator} from './BaseOrchestratorGenerator';
  * Traverse a control flow hierarchy and generate a Composer workflow definition from the modeled workflow.
  */
 export class ComposerGenerator extends BaseOrchestratorGenerator {
+    constructor(useCloudComposer = false) {
+        super();
+        this.isCloudComposer = useCloudComposer;
+    }
 
     generateOrchestrator(name, sequenceBlock) {
-        let generated = 'const composer = require(\'openwhisk-composer\')';
+        let requiredImport;
+        this.isCloudComposer ? requiredImport = 'require(\'@ibm-functions/composer\')' : requiredImport = 'require(\'openwhisk-composer\')';
+        let generated = 'const composer = ' + requiredImport;
         generated += '\n\nmodule.exports = ';
         generated += this.dispatch(sequenceBlock, '');
-        this.getOutputFiles().push({ name: name + '.js', content: generated });
+        this.getOutputFiles().push({name: name + '.js', content: generated});
     }
 
     traverseSequenceBlock(sequenceBlock, indentation) {
@@ -32,7 +38,7 @@ export class ComposerGenerator extends BaseOrchestratorGenerator {
 
             for (let i = 0; i < sequence.length; i++) {
                 generated += this.dispatch(sequence[i], indentation + this.indent(2));
-                generated += (i < sequence.length -1) ? ',\n' : '\n' + indentation + ')';
+                generated += (i < sequence.length - 1) ? ',\n' : '\n' + indentation + ')';
             }
         }
 
@@ -52,7 +58,7 @@ export class ComposerGenerator extends BaseOrchestratorGenerator {
         generated += ')';
 
         if (task.getRetryCount() && task.getRetryCount() !== DEFAULT_RETRY_COUNT) {
-            generated = 'composer.retry(' + task.getRetryCount() + ', ' + generated + ')'; 
+            generated = 'composer.retry(' + task.getRetryCount() + ', ' + generated + ')';
         }
 
         if (task.getErrorHandler()) {
@@ -119,11 +125,11 @@ export class ComposerGenerator extends BaseOrchestratorGenerator {
             const condition = this.generateCondition('params', branchConds[branchName], conditionalBlock);
             generated += indentation + this.indent(i * 2) + 'composer.if(params => ' + condition + ',\n';
             generated += this.dispatch(branchSeqs[branchName], indentation + this.indent(i * 2 + 2));
-            generated += (i < branchNames.length -1) ? ',\n' : ',\n' + this.dispatch(branchSeqs[DEFAULT_BRANCH], indentation + this.indent(i * 2 + 2));
+            generated += (i < branchNames.length - 1) ? ',\n' : ',\n' + this.dispatch(branchSeqs[DEFAULT_BRANCH], indentation + this.indent(i * 2 + 2));
         }
 
-        for (let i = branchNames.length -1; i >= 0; i--) {
-            generated +='\n' + indentation + this.indent(i * 2) + ')';
+        for (let i = branchNames.length - 1; i >= 0; i--) {
+            generated += '\n' + indentation + this.indent(i * 2) + ')';
         }
 
         return generated;
