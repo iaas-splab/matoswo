@@ -7,7 +7,7 @@ import matoswoModdleDescriptor from './descriptors/matoswo';
 
 import {debounce} from 'min-dash';
 
-import diagramXML from '../resources/newDiagram.bpmn';
+import diagramXML from './resources/newDiagram.bpmn';
 
 import {BpmnModelOrchestratorTransformation} from './orchestrator-generation/BpmnModelOrchestratorTransformation';
 import {StrictModelValidator} from './orchestrator-generation/traversers/control-flow-hierarchy/validators/StrictModelValidator';
