@@ -45,7 +45,7 @@ function createMaToSWoTabGroups(element) {
     // Create a group called "MaToSWo Properties".
     var matoswoGroup = {
         id: 'matoswo-tab',
-        label: 'MaToSWo Properties',
+        label: 'BPMN4FO Properties',
         entries: []
     };
 
@@ -71,7 +71,7 @@ export default function MaToSWoPropertiesProvider(eventBus, bpmnFactory, canvas,
         // The "matoswo" tab
         var matoswoTab = {
             id: 'matoswo',
-            label: 'MaToSWo',
+            label: 'BPMN4FO',
             groups: createMaToSWoTabGroups(element)
         };
 
